@@ -1,0 +1,25 @@
+title: Windows PowerShell Encoded Command Execution
+id: 5902edb7-3b70-4e55-bb69-fc4ef540ba6b
+status: test
+description: Detects PowerShell launched with encoded command arguments, a common technique for obfuscated script execution.
+author: Adam Osbourne
+date: 2026/04/25
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image: contains:powershell
+    CommandLine: contains:-enc
+  condition: selection
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - User
+falsepositives:
+  - Administrative scripts or legitimate endpoint management tooling
+level: medium
+tags:
+  - attack.t1059.001
+  - attack.t1027
