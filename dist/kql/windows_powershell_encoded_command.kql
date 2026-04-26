@@ -1,0 +1,5 @@
+// Windows PowerShell Encoded Command Execution
+// Sigma ID: 5902edb7-3b70-4e55-bb69-fc4ef540ba6b
+windows
+| where Image contains "powershell"
+| where CommandLine contains "-enc"

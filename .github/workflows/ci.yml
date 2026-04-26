@@ -23,3 +23,6 @@ jobs:
 
       - name: Run rule unit tests
         run: python tools/test_rules.py
+
+      - name: Convert rules to KQL
+        run: python tools/convert.py

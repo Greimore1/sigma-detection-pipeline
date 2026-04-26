@@ -6,6 +6,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 RULES_DIR = ROOT / "rules"
 TESTS_DIR = ROOT / "tests"
+DIST_DIR = ROOT / "dist" / "kql"
 
 
 def _parse_scalar(value: str) -> Any:
