@@ -22,7 +22,7 @@ tools/
 
 ## Running locally
 
-No dependencies required — pure Python 3.
+No dependencies required - pure Python 3.
 
 ```bash
 python tools/validate.py
