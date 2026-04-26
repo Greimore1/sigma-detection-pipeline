@@ -1,0 +1,7 @@
+{
+  "OperationName": "Add member to role",
+  "Result": "success",
+  "TargetRole": "Reader",
+  "InitiatedBy": "admin@example.com",
+  "TargetResources": "user@example.com"
+}

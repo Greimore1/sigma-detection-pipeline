@@ -1,0 +1,26 @@
+title: AWS IAM Access Key Created For Another User
+id: 46f521a3-29a0-49a0-b7d8-9c220aa9e0c9
+status: test
+description: Detects IAM access key creation where the requester creates a key for a different IAM user, which may indicate privilege abuse or credential persistence.
+author: Adam Osbourne
+date: 2026/04/25
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: iam.amazonaws.com
+    eventName: CreateAccessKey
+    requestForDifferentUser: "true"
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.userName
+  - sourceIPAddress
+  - userAgent
+falsepositives:
+  - Approved access key rotation by cloud administrators
+level: high
+tags:
+  - attack.t1098
+  - attack.t1078

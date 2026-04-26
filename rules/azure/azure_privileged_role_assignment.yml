@@ -1,0 +1,26 @@
+title: Azure Privileged Role Assignment
+id: f47ca3b2-4b32-4c8e-9f5d-1f6b44bfdb51
+status: test
+description: Detects assignment of high-privilege Azure or Entra ID roles that may indicate privilege escalation or unauthorised access expansion.
+author: Adam Osbourne
+date: 2026/04/25
+logsource:
+  product: azure
+  service: AuditLogs
+detection:
+  selection:
+    OperationName: Add member to role
+    Result: success
+    TargetRole: Global Administrator
+  condition: selection
+fields:
+  - InitiatedBy
+  - TargetResources
+  - TargetRole
+  - Result
+falsepositives:
+  - Approved privileged identity management activation or authorised administrator onboarding
+level: critical
+tags:
+  - attack.t1098
+  - attack.t1078

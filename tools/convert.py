@@ -4,19 +4,25 @@ import re
 from typing import Any
 from common import iter_rule_paths, load_yaml, get_selection, DIST_DIR, rule_slug
 
-# Maps (product, category) logsource pairs to Defender for Endpoint table names
+# Maps (product, category/service) logsource pairs to Sentinel table names
 TABLE_MAP: dict[tuple[str, str], str] = {
     ("windows", "process_creation"): "DeviceProcessEvents",
+    ("aws", "cloudtrail"): "AWSCloudTrail",
+    ("azure", "AuditLogs"): "AuditLogs",
 }
 
-# Maps Sigma/Sysmon field names to DeviceProcessEvents field names
+# Maps Sigma field names to Sentinel table field names
 FIELD_MAP: dict[str, dict[str, str]] = {
     "DeviceProcessEvents": {
         "Image": "FolderPath",
         "CommandLine": "ProcessCommandLine",
         "ParentImage": "InitiatingProcessFolderPath",
         "User": "AccountName",
-    }
+    },
+    "AWSCloudTrail": {
+        "eventSource": "EventSource",
+        "eventName": "EventName",
+    },
 }
 
 
@@ -44,7 +50,8 @@ def main() -> None:
         logsource = rule.get("logsource", {})
         product = logsource.get("product", "")
         category = logsource.get("category", "")
-        table = TABLE_MAP.get((product, category)) or logsource.get("service") or product or "SecurityEvent"
+        service = logsource.get("service", "")
+        table = TABLE_MAP.get((product, category)) or TABLE_MAP.get((product, service)) or service or product or "SecurityEvent"
         field_map = FIELD_MAP.get(table, {})
         conditions = "\n| where ".join(condition_to_kql(f, v, field_map) for f, v in selection.items())
         kql = f"// {rule['title']}\n// Sigma ID: {rule['id']}\n{table}\n| where {conditions}\n"

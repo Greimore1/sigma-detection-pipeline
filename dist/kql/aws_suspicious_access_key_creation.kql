@@ -1,0 +1,6 @@
+// AWS IAM Access Key Created For Another User
+// Sigma ID: 46f521a3-29a0-49a0-b7d8-9c220aa9e0c9
+AWSCloudTrail
+| where EventSource == "iam.amazonaws.com"
+| where EventName == "CreateAccessKey"
+| where requestForDifferentUser == "true"

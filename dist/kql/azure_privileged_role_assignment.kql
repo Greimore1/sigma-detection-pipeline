@@ -1,0 +1,6 @@
+// Azure Privileged Role Assignment
+// Sigma ID: f47ca3b2-4b32-4c8e-9f5d-1f6b44bfdb51
+AuditLogs
+| where OperationName == "Add member to role"
+| where Result == "success"
+| where TargetRole == "Global Administrator"

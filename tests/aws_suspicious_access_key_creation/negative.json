@@ -1,0 +1,9 @@
+{
+  "eventSource": "iam.amazonaws.com",
+  "eventName": "CreateAccessKey",
+  "requestForDifferentUser": "false",
+  "userIdentity.arn": "arn:aws:iam::123456789012:user/alice",
+  "requestParameters.userName": "alice",
+  "sourceIPAddress": "198.51.100.10",
+  "userAgent": "aws-cli/2.0"
+}
