@@ -9,6 +9,7 @@ TABLE_MAP: dict[tuple[str, str], str] = {
     ("windows", "process_creation"): "DeviceProcessEvents",
     ("aws", "cloudtrail"): "AWSCloudTrail",
     ("azure", "AuditLogs"): "AuditLogs",
+    ("github", "ci_cd"): "GitHubAuditData",
 }
 
 # Maps Sigma field names to Sentinel table field names

@@ -1,0 +1,7 @@
+{
+  "action": "workflow_run.updated",
+  "actor": "developer@example.com",
+  "repository": "payments-api",
+  "workflow_file": ".github/workflows/deploy.yml",
+  "change_summary": "Added step that echoes secrets.AWS_ACCESS_KEY_ID for debug output"
+}
